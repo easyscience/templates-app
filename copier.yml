@@ -1,0 +1,23 @@
+_subdirectory: template
+
+_answers_file: .copier-answers.desktop-app.yml
+
+project:
+  name:
+    type: str
+  description:
+    type: str
+  year:
+    type: int
+  repos:
+    lib:
+      type: str
+
+lib:
+  package_name:
+    type: str
+  python:
+    min:
+      type: str
+    max:
+      type: str
