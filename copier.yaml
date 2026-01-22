@@ -54,11 +54,11 @@ project_contact_email:
 project_type:
   type: str
   choices:
-    lib:
+    - value: lib
       help: Python library/package
-    app:
+    - value: app
       help: Qt QML desktop application
-    both:
+    - value: both
       help: Both Python library and Qt QML desktop application
   default: both
   help: What types will your project include?
