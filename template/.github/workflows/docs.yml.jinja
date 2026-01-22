@@ -121,13 +121,13 @@ jobs:
       - name: Run notebooks
         # if: false # Temporarily disabled to speed up the docs build
         run: pixi run notebook-exec
+      {%- endif %}
 
       # Build the static files for the documentation site for local inspection
       # Input: docs/ directory containing the Markdown files
       # Output: site/ directory containing the generated HTML files
       - name: Build site for local check
         run: pixi run docs-build-local
-      {%- endif %}
 
       # Upload the static files from the site/ directory to be used for
       # local check
