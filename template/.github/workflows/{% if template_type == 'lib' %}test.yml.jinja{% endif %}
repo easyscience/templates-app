@@ -45,18 +45,8 @@ concurrency:
 # Set the environment variables to be used in all jobs defined in this workflow
 env:
   CI_BRANCH: {% raw %}${{ github.head_ref || github.ref_name }}{% endraw %}
-  PY_VERSIONS:
-    {%- if template_type == "lib" %}
-    '{{ lib_python_min }} {{ lib_python_max }}'
-    {%- elif template_type == "app" %}
-    'default'
-    {%- endif %}
-  PIXI_ENVS:
-    {%- if template_type == "lib" %}
-    'py-{{ lib_python_min | replace(".", "") }}-env py-{{ lib_python_max | replace(".", "") }}-env'
-    {%- elif template_type == "app" %}
-    'default'
-    {%- endif %}
+  PY_VERSIONS: '{{ lib_python_min }} {{ lib_python_max }}'
+  PIXI_ENVS: 'py-{{ lib_python_min | replace(".", "") }}-env py-{{ lib_python_max | replace(".", "") }}-env'
 
 jobs:
   # Job 1: Set up environment variables
@@ -107,11 +97,7 @@ jobs:
             echo
             echo "🔹🔸🔹🔸🔹 Python: $py_ver 🔹🔸🔹🔸🔹"
 
-            {%- if template_type == "lib" %}
             env="py-$(echo $py_ver | tr -d .)-env" # Converts 3.11 -> py-311-env
-            {%- elif template_type == "app" %}
-            env="default" # Single environment for the app
-            {%- endif %}
 
             echo "Running tests in environment: $env"
             pixi run --environment $env unit-tests
@@ -126,17 +112,12 @@ jobs:
             echo
             echo "🔹🔸🔹🔸🔹 Python: $py_ver 🔹🔸🔹🔸🔹"
 
-            {%- if template_type == "lib" %}
             env="py-$(echo $py_ver | tr -d .)-env" # Converts 3.11 -> py-311-env
-            {%- elif template_type == "app" %}
-            env="default" # Single environment for the app
-            {%- endif %}
 
             echo "Running tests in environment: $env"
             pixi run --environment $env integration-tests {% raw %}${{ needs.env-prepare.outputs.pytest-marks }}{% endraw %}
           done
 
-      {%- if template_type == "lib" %}
       # Delete all local tags when not on a tagged commit to force versioningit
       # to fall back to the configured default-tag, which is '999.0.0' in our case.
       # This is needed for testing the package in the next job, as its version
@@ -175,9 +156,7 @@ jobs:
         with:
           name: {{ project_name | lower }}_{% raw %}${{ matrix.os }}{% endraw %}_{% raw %}${{ runner.arch }}{% endraw %}
           path: dist/
-      {%- endif %}
 
-  {%- if template_type == "lib" %}
   # Job 3: Test the package
   package-test:
     needs: source-test # depend on previous job
@@ -285,7 +264,6 @@ jobs:
             echo "Exiting pixi project directory"
             cd ..
           done
-  {%- endif %}
 
   # Job 4: Build and publish dashboard (reusable workflow)
   run-reusable-workflows:
