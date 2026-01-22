@@ -141,4 +141,4 @@ app_docs_url:
 # =============================================================================
 
 _subdirectory: template
-_answers_file: .project.yaml
+_answers_file: .copier-answers.yaml
