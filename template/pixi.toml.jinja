@@ -33,6 +33,7 @@ PYTHONPATH = "${PIXI_PROJECT_ROOT}/src;%PYTHONPATH%"
 ###########
 
 [workspace]
+
 # Supported platforms for the lock file (pixi.lock)
 platforms = ['win-64', 'linux-64', 'osx-64', 'osx-arm64']
 
@@ -55,7 +56,7 @@ pip = '*'                                                     # Native package i
 
 # Specific features: Set specific Python versions
 
-{%- if template_type == "lib" %}
+{% if template_type == "lib" -%}
 [feature.py-min.dependencies]
 python = '{{ lib_python_min }}.*'
 
@@ -211,4 +212,4 @@ post-install = { depends-on = [
 ] }
 
 # 🔗 Main Package Shortcut
-{{ lib_package_name }} = 'python -m {{ lib_package_name }}'
+{{ package_name }} = 'python -m {{ package_name }}'
