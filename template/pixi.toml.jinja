@@ -1,7 +1,7 @@
-{%- if template_type == "lib" -%}
-{% set package_name = lib_package_name %}
-{%- elif template_type == "app" -%}
-{% set package_name = app_package_name %}
+{%- if template_type == "lib" %}
+{%- set package_name = lib_package_name %}
+{%- elif template_type == "app" %}
+{%- set package_name = app_package_name %}
 {%- endif -%}
 
 #######################
@@ -63,7 +63,7 @@ python = '{{ lib_python_max }}.*'
 {%- elif template_type == "app" -%}
 [feature.py-max.dependencies]
 python = '{{ app_python }}.*'
-{%- endif -%}
+{%- endif %}
 
 ##############
 # ENVIRONMENTS
@@ -77,10 +77,10 @@ python = '{{ app_python }}.*'
 # The `default` environment is always created and includes the `default` feature.
 # It does not need to be specified explicitly unless non-default features are included.
 
-{%- if template_type == "lib" -%}
+{%- if template_type == "lib"%}
 py-{{ lib_python_min.split('.') | join('') }}-env = { features = ['default', 'py-min'] }
 py-{{ lib_python_max.split('.') | join('') }}-env = { features = ['default', 'py-max'] }
-{%- endif -%}
+{%- endif %}
 
 # Default environment uses the maximum supported Python version
 
