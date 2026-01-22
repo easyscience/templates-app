@@ -60,9 +60,9 @@ project_type:
   default: both
   help: |
     What types will your project include?
-         lib  - Python library/package only
-         app  -  Qt QML desktop application only
-         both - Both Python library and Qt QML desktop application
+       - lib: Python library/package only
+       - app: Qt QML desktop application only
+       - both: Both Python library and Qt QML desktop application
 
 template_type:
   type: str
@@ -74,8 +74,8 @@ template_type:
   when: '{{ project_type == "both" }}'
 
 # Computed variables for logic
-has_lib: '{{ project_type == "lib" or project_type == "both" }}'
-has_app: '{{ project_type == "app" or project_type == "both" }}'
+has_lib: {{ project_type in ["lib", "both"] }}
+has_app: {{ project_type in ["app", "both"] }}
 
 ---
 # =============================================================================
