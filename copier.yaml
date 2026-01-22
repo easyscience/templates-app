@@ -74,8 +74,15 @@ template_type:
   when: '{{ project_type == "both" }}'
 
 # Computed variables for logic
-has_lib: !jinja "{{ project_type in ['lib', 'both'] }}"
-has_app: !jinja "{{ project_type in ['app', 'both'] }}"
+has_lib:
+  type: bool
+  default: "{{ project_type in ['lib', 'both'] }}"
+  ask: false
+
+has_app:
+  type: bool
+  default: "{{ project_type in ['app', 'both'] }}"
+  ask: false
 
 ---
 # =============================================================================
