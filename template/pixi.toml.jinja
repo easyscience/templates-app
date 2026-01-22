@@ -55,14 +55,17 @@ pip = '*'                                                     # Native package i
 
 # Specific features: Set specific Python versions
 
-{%- if template_type == "lib" -%}
+{%- if template_type == "lib" %}
 [feature.py-min.dependencies]
 python = '{{ lib_python_min }}.*'
+
 [feature.py-max.dependencies]
 python = '{{ lib_python_max }}.*'
-{%- elif template_type == "app" -%}
+
+{%- elif template_type == "app" %}
 [feature.py-max.dependencies]
 python = '{{ app_python }}.*'
+
 {%- endif %}
 
 ##############
@@ -73,17 +76,13 @@ python = '{{ app_python }}.*'
 
 # The `default` feature is always included in all environments.
 # Additional features can be specified per environment.
-
-# The `default` environment is always created and includes the `default` feature.
-# It does not need to be specified explicitly unless non-default features are included.
-
 {%- if template_type == "lib" %}
 py-{{ lib_python_min.split('.') | join('') }}-env = { features = ['default', 'py-min'] }
 py-{{ lib_python_max.split('.') | join('') }}-env = { features = ['default', 'py-max'] }
 {%- endif %}
 
-# Default environment uses the maximum supported Python version
-
+# The `default` environment is always created and includes the `default` feature.
+# It does not need to be specified explicitly unless non-default features are included.
 default = { features = ['default', 'py-max'] }
 
 #######
