@@ -58,7 +58,7 @@ project_type:
     - app
     - both
   default: both
-  help: >
+  help: |
     What types will your project include?
     - lib: Python library/package only
     - app: Qt QML desktop application only
