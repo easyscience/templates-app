@@ -127,7 +127,7 @@ jobs:
       # Output: site/ directory containing the generated HTML files
       - name: Build site for local check
         run: pixi run docs-build-local
-      {%- else %}
+      {%- endif %}
 
       # Upload the static files from the site/ directory to be used for
       # local check
