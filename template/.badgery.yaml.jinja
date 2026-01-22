@@ -8,6 +8,7 @@ cards:
     file: test.yml
     enabled: true
 
+  {%- if template_type == "lib" %}
   - group: Tests
     type: gh_action
     title: Tutorial tests (GitHub)
@@ -19,6 +20,7 @@ cards:
     title: Package tests (PyPI)
     file: pypi-test.yml
     enabled: true
+  {%- endif %}
 
   - group: Code Quality
     type: codefactor
@@ -61,11 +63,13 @@ cards:
     report: reports/{branch}/coverage-docstring.txt
     enabled: true
 
+  {%- if template_type == "lib" %}
   - group: Build & Release
     type: gh_action
     title: Publishing (PyPI)
     workflow: pypi-publish.yml
     enabled: true
+  {%- endif %}
 
   - group: Build & Release
     type: gh_action
