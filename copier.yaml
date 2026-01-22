@@ -146,6 +146,13 @@ app_docs_url:
   default: 'https://easyscience.github.io/{{ app_repo_name }}'
   help: What is the documentation URL for the application?
 
+app_doi:
+  when: '{{ project_type in ["app", "both"] }}'
+  type: str
+  default: '10.5281/zenodo.18163581'
+  help: |
+    What is the DOI for the application (without the URL prefix, e.g., 10.5281/zenodo.xxxxxxx)?
+
 ---
 # =============================================================================
 # Template settings
