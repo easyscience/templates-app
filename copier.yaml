@@ -75,12 +75,10 @@ template_type:
 
 # Computed variables for logic
 has_lib:
-  type: bool
   default: "{{ project_type in ['lib', 'both'] }}"
   ask: false
 
 has_app:
-  type: bool
   default: "{{ project_type in ['app', 'both'] }}"
   ask: false
 
