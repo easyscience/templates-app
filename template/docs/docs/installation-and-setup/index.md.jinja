@@ -4,6 +4,7 @@ icon: material/cog-box
 
 # :material-cog-box: Installation & Setup
 
+{% if template_type == "lib" -%}
 **{{ project_name }}** is a cross-platform Python library compatible with
 **Python {{ lib_python_min }}** through **{{ lib_python_max }}**.
 
@@ -290,3 +291,9 @@ local installation. This is the fastest way to start experimenting with
   section.
 - Click the :google-colab: **Open in Google Colab** button on any
   tutorial.
+
+{%- elif template_type == "app" %}
+This section is currently under development. Please check back later for
+updates.
+
+{%- endif %}

@@ -2,50 +2,72 @@
 icon: material/information-slab-circle
 ---
 
+{%- if template_type == "lib" %}
+{%- set current_type = 'Library' %}
+{%- set repo_name = lib_repo_name %}
+{%- set doi = lib_doi %}
+{%- elif template_type == "app" %}
+{%- set current_type = 'Application' %}
+{%- set repo_name = app_repo_name %}
+{%- set doi = app_doi %}
+{%- endif %}
+
 # :material-information-slab-circle: Introduction
 
 ## Description
 
-**{{ project_name }}** is a scientific software 
-{{ project_extended_description | lower }}.
+**{{ project_name }}** is a scientific software {{ project_extended_description | lower }}.
 
-{% if has_lib and has_app %}
+{% if project_type == "both" -%}
 **{{ project_name }}** is available both as a Python library and as a
-cross-platform desktop application. Here, we focus on the Python 
-library. For the graphical user interface (GUI), please see the 
-corresponding [GUI resources](https://github.com/easyscience/{{ app_repo_name }}).
-{% elif has_lib %}
+cross-platform desktop application.
+
+{% if template_type == "lib" -%}
+Here, we focus on the Python library. For the graphical user interface
+(GUI), please see the corresponding [GUI resources](https://github.com/easyscience/{{ app_repo_name }}).
+
+{% elif template_type == "app" -%}
+Here, we focus on the graphical user interface (GUI). For the Python
+library, please see the corresponding [library resources](https://github.com/easyscience/{{ app_repo_name }}).
+
+{%- endif -%}
+
+{% elif project_type == "lib" -%}
 **{{ project_name }}** is available as a Python library.
-{% endif %}
+
+{% elif project_type == "app" -%}
+**{{ project_name }}** is available as a cross-platform Qt QML desktop application.
+
+{%- endif -%}
 
 **{{ project_name }}** is developed using the
 [EasyScience framework](https://easyscience.org).
 
 ## License
 
-**{{ project_name }}** is released under the
-[BSD 3-Clause License](https://raw.githubusercontent.com/easyscience/{{ lib_repo_name }}/master/LICENSE).
+**{{ project_name }}** {{ current_type | lower }} is released under the
+[BSD 3-Clause License](https://raw.githubusercontent.com/easyscience/{{ repo_name }}/master/LICENSE).
 
 ## Releases
 
-The latest version of the **{{ project_name }}** Python library is
-[{% raw %}{{ vars.release_version }}{% endraw %}](https://github.com/easyscience/{{ lib_repo_name }}/releases/latest).
+The latest version of the **{{ project_name }}** {{ current_type | lower }} is
+[{% raw %}{{ vars.release_version }}{% endraw %}](https://github.com/easyscience/{{ repo_name }}/releases/latest).
 
 For a complete list of new features, bug fixes, and improvements, see
 the
-[GitHub Releases page](https://github.com/easyscience/{{ lib_repo_name }}/releases).
+[GitHub Releases page](https://github.com/easyscience/{{ repo_name }}/releases).
 
 ## Citation
 
-If you use **{{ project_name }}** in your work, please cite the specific
-version you used.
+If you use **{{ project_name }}** {{ current_type | lower }} in your work,
+please cite the specific version you used.
 
-All official releases of the **{{ project_name }}** library are archived
+All official releases of the **{{ project_name }}** {{ current_type | lower }} are archived
 on Zenodo, each with a version-specific Digital Object Identifier (DOI).
 
 Citation details in various styles (e.g., APA, MLA) and formats (e.g.,
 BibTeX, JSON) are available on the
-[Zenodo archive page](https://doi.org/{{ lib_doi }}).
+[Zenodo archive page](https://doi.org/{{ doi }}).
 
 ## Contributing
 
@@ -57,7 +79,7 @@ The project is maintained by the
 [European Spallation Source (ESS)](https://ess.eu).
 
 To contribute, see our
-[:material-account-plus: Contributing Guidelines](https://github.com/easyscience/{{ lib_repo_name }}/blob/master/CONTRIBUTING.md)
+[:material-account-plus: Contributing Guidelines](https://github.com/easyscience/{{ repo_name }}/blob/master/CONTRIBUTING.md)
 on GitHub.
 
 ## Get in Touch
@@ -66,5 +88,5 @@ For general questions or feedback, contact us at
 [{{ project_contact_email }}](mailto:{{ project_contact_email }}).
 
 To report bugs or request features, please use the
-[GitHub Issue Tracker](https://github.com/easyscience/{{ lib_repo_name }}/issues)
+[GitHub Issue Tracker](https://github.com/easyscience/{{ repo_name }}/issues)
 (free registration required).

@@ -75,11 +75,11 @@ extra:
     {%- if template_type == "lib" %}
     - icon: app # File: overrides/.icons/app.svg
       link: https://easyscience.github.io/{{ app_repo_name }}
-      name: EasyDiffraction Application Docs
+      name: {{ project_name }} Application Docs
     {%- elif template_type == "app" %}
     - icon: app # File: overrides/.icons/app.svg
       link: https://easyscience.github.io/{{ lib_repo_name }}
-      name: EasyDiffraction Library Docs
+      name: {{ project_name }} Library Docs
     {%- endif %}
     - icon: fontawesome/brands/github # Name as in Font Awesome
       link: https://github.com/easyscience/{{ repo_name }}
