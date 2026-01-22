@@ -45,8 +45,18 @@ concurrency:
 # Set the environment variables to be used in all jobs defined in this workflow
 env:
   CI_BRANCH: {% raw %}${{ github.head_ref || github.ref_name }}{% endraw %}
-  PY_VERSIONS: '{{ lib_python_min }} {{ lib_python_max }}'
-  PIXI_ENVS: 'py-{{ lib_python_min | replace(".", "") }}-env py-{{ lib_python_max | replace(".", "") }}-env'
+  PY_VERSIONS:
+    {%- if template_type == "lib" %}
+    '{{ lib_python_min }} {{ lib_python_max }}'
+    {%- elif template_type == "app" %}
+    'default'
+    {%- endif %}
+  PIXI_ENVS:
+    {%- if template_type == "lib" %}
+    'py-{{ lib_python_min | replace(".", "") }}-env py-{{ lib_python_max | replace(".", "") }}-env'
+    {%- elif template_type == "app" %}
+    'default'
+    {%- endif %}
 
 jobs:
   # Job 1: Set up environment variables
