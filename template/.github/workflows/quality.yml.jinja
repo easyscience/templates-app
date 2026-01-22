@@ -101,15 +101,17 @@ jobs:
             echo ""
             echo "| Check | Status |"
             echo "|-------|--------|"
-            {% raw %}
+            {%- raw %}
             echo "| pyproject.toml   | ${{ steps.check_pyproject.outcome == 'success' && '✅' || '❌' }} |"
             echo "| py lint          | ${{ steps.check_code_linting.outcome == 'success' && '✅' || '❌' }} |"
             echo "| py format        | ${{ steps.check_code_formatting.outcome == 'success' && '✅' || '❌' }} |"
             echo "| docstring format | ${{ steps.check_docs_formatting.outcome == 'success' && '✅' || '❌' }} |"
             echo "| nonpy format     | ${{ steps.check_others_formatting.outcome == 'success' && '✅' || '❌' }} |"
-            {% endraw %}
+            {%- endraw %}
             {%- if template_type == "lib" %}
+            {%- raw %}
             echo "| notebooks format | ${{ steps.check_notebooks_formatting.outcome == 'success' && '✅' || '❌' }} |"
+            {%- endraw %}
             {%- endif %}
           } >> "$GITHUB_STEP_SUMMARY"
 
