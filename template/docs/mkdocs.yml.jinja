@@ -185,7 +185,9 @@ nav:
       - User Guide: user-guide/index.md
   - Tutorials:
       - Tutorials: tutorials/index.md
+      {% if template_type == "lib" %}
       - Getting Started:
           - Dummy tutorial: tutorials/tutorial.ipynb
+      {% endif %}
   - API Reference:
       - API Reference: api-reference/index.md
