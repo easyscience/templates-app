@@ -66,12 +66,14 @@ project_type:
 
 template_type:
   type: str
-  choices:
+  choices: |
+    {%- project_type in ["lib", "both"] %}
     - lib
+    {%- endif %}
+    {%- project_type in ["app", "both"] %}
     - app
-  default: lib
+    {%- endif %}
   help: Which template do you want to apply right now?
-  when: '{{ project_type == "both" }}'
 
 ---
 # =============================================================================
