@@ -52,7 +52,7 @@ project_contact_email:
 # =============================================================================
 
 project_type:
-  type: str
+  type: yaml
   choices:
     - value: lib
       help: Python library/package
