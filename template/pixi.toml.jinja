@@ -77,7 +77,7 @@ python = '{{ app_python }}.*'
 # The `default` environment is always created and includes the `default` feature.
 # It does not need to be specified explicitly unless non-default features are included.
 
-{%- if template_type == "lib"%}
+{%- if template_type == "lib" %}
 py-{{ lib_python_min.split('.') | join('') }}-env = { features = ['default', 'py-min'] }
 py-{{ lib_python_max.split('.') | join('') }}-env = { features = ['default', 'py-max'] }
 {%- endif %}
