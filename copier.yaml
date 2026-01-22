@@ -6,7 +6,7 @@
 project_name:
   type: str
   default: EasyPeasy
-  help: What is the project name, including the `Easy` prefix?
+  help: What is the project name, including the `Easy` prefix (e.g., EasyDiffraction)?
 
 project_shortcut:
   type: str
