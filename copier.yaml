@@ -67,10 +67,10 @@ project_type:
 template_type:
   type: str
   choices: |
-    {%- project_type in ["lib", "both"] %}
+    {%- if project_type in ["lib", "both"] %}
     - lib
     {%- endif %}
-    {%- project_type in ["app", "both"] %}
+    {%- if project_type in ["app", "both"] %}
     - app
     {%- endif %}
   help: Which template do you want to apply right now?
