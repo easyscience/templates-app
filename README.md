@@ -115,7 +115,14 @@ Pixi project:
 
 ```bash
 cd peasy
+```
+
+```bash
 pixi init
+```
+
+```bash
+pixi install
 ```
 
 ### 2.3. Install Copier
@@ -182,6 +189,13 @@ cd peasy-app
 Initialize Pixi and install Copier:
 ```bash
 pixi init
+```
+
+```bash
+pixi install
+```
+
+```bash
 pixi add copier
 ```
 
@@ -207,6 +221,14 @@ pixi run copier copy gh:easyscience/templates . --data-file ../peasy/.copier-ans
 
 After the project structure is generated, run the following commands to
 finalize the setup:
+
+- **Reinstall default environment:** This step ensures that all
+  dependencies are correctly installed as per new `pixi.toml`
+  configuration.
+
+  ```bash
+  pixi reinstall
+  ```
 
 - **Install extra development dependencies and set up tools:** This step
   sets up pre-commit hooks, installs additional development

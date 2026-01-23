@@ -133,7 +133,7 @@ app_repo_name:
 app_package_name:
   when: '{{ project_type in ["app", "both"] }}'
   type: str
-  default: '{{ project_name | lower }}'
+  default: '{{ project_name | lower }}-app'
   help: What is the name for the application Python package (use lowercase letters)?
 
 app_python:
