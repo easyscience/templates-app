@@ -313,9 +313,28 @@ or
 pixi run pre-push-check
 ```
 
-Often, running `pixi run fix` is enough to fix issues automatically. If
-not, follow the instructions provided in the output of the above
-commands to resolve all issues.
+Often, running `pixi run fix` is enough to fix issues automatically. And
+sometimes, one needs to run it twice to fix all issues. If issues
+persist, manually address them based on the output of the above commands.
+
+#### Disable Hooks Temporarily
+
+If you need to disable pre-commit or pre-push hooks temporarily (not
+recommended), run:
+
+```bash
+pixi run pre-commit-uninstall
+```
+
+To re-enable them, run:
+
+```bash
+pixi run pre-commit-install
+```
+
+Configurations for these hooks are in the `.pre-commit-config.yaml` file 
+under the project root. After modifying this file, reinstall the hooks 
+using the commands above.
 
 ### 2.9. Push Changes to the Repository
 
