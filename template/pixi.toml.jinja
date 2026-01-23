@@ -149,9 +149,9 @@ raw-metrics = 'radon raw -s src/'
 raw-metrics-json = 'radon raw -s -j src/'
 
 # 📊 Coverage
-unit-tests-coverage = 'pixi run unit-tests --cov=src/{{ lib_package_name }} --cov-report=term-missing'
-integration-tests-coverage = 'pixi run integration-tests --cov=src/{{ lib_package_name }} --cov-report=term-missing'
-docstring-coverage = 'interrogate -c pyproject.toml src/{{ lib_package_name }}'
+unit-tests-coverage = 'pixi run unit-tests --cov=src/{{ package_name }} --cov-report=term-missing'
+integration-tests-coverage = 'pixi run integration-tests --cov=src/{{ package_name }} --cov-report=term-missing'
+docstring-coverage = 'interrogate -c pyproject.toml src/{{ package_name }}'
 
 cov = { depends-on = [
   'docstring-coverage',
