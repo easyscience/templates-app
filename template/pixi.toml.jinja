@@ -185,14 +185,9 @@ docs-set-default-pre = 'mike set-default -F docs/mkdocs.yml --push --branch gh-p
 docs-update-assets = 'pixi run python tools/update_docs_assets.py'
 
 # 📦 Template Management Tasks
-copier-copy-shared = "pixi run copier copy gh:easyscience/templates-shared . --data-file ../peasy/.project.yaml"
-copier-copy-lib = "pixi run copier copy gh:easyscience/templates-lib . --data-file ../peasy/.project.yaml"
-
-copier-recopy-shared = "pixi run copier recopy --answers-file .copier-answers.shared.yml --data-file ../peasy/.project.yaml"
-copier-recopy-lib = "pixi run copier recopy --answers-file .copier-answers.lib.yml --data-file ../peasy/.project.yaml"
-
-copier-update-shared = "pixi run copier update --answers-file .copier-answers.shared.yml --data-file ../peasy/.project.yaml"
-copier-update-lib = "pixi run copier update --answers-file .copier-answers.lib.yml --data-file ../peasy/.project.yaml"
+copier-copy = "pixi run copier copy gh:easyscience/templates-app . --data-file ../peasy/.copier-answers.yml"
+copier-recopy = "pixi run copier recopy --answers-file .copier-answers.yml --data-file ../peasy/.copier-answers.yml"
+copier-update = "pixi run copier update --answers-file .copier-answers.yml --data-file ../peasy/.copier-answers.yaml"
 
 # 🚀 Development & Build Tasks
 default-build = 'python -m build'

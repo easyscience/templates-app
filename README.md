@@ -46,45 +46,17 @@ All templates are based on [Copier](https://copier.readthedocs.io/), which allow
   - [GitHub Actions Workflows](#github-actions-workflows)
 - [Release Workflow](#release-workflow)
 
-## 🏗️ Available Templates
-
-| Template  | Description | Source Repository |
-|-----------|-------------|------------------|
-| `shared`  | Shared base template with common files (CI workflows, licensing, etc.) | [easyscience/templates-shared](https://github.com/easyscience/templates-shared) |
-| `lib`     | Python library template (e.g., diffraction-lib) | [easyscience/templates-lib](https://github.com/easyscience/templates-lib) |
-| `app`     | Qt QML desktop application template (e.g., diffraction-app) | [easyscience/templates-app](https://github.com/easyscience/templates-app) |
-
----
-
-### Template layering
-
-Templates are applied incrementally:
-
-```
-shared → lib / app
-```
-
-- shared defines organization-wide defaults.
-- lib / app add project-type-specific files.
-- This separation allows updating shared infrastructure without touching project-specific logic.
-
 ## 🧱 Overall Project Structure
 
 EasyScience projects typically consist of multiple repositories:
 
-1. Home (umbrella) repository
-   - Example: easyscience/peasy
+1. Home (umbrella) repository. Example: `easyscience/peasy`
    - Acts as the entry point for the project
-   - Hosts the project website / landing page
    - Stores the project description file (Copier answers)
-   - Does not contain implementation code
-2. Library repository (if applicable)
-   - Example: easyscience/peasy-lib
+2. Library repository (if applicable). Example: `easyscience/peasy-lib`
    - Contains the Python library
-   - Publishes documentation and PyPI packages
    - Uses shared metadata from the home repository
-3. Application repository (if applicable)
-   - Example: easyscience/peasy-app
+3. Application repository (if applicable). Example: `easyscience/peasy-app`
    - Contains the GUI application
    - Uses the same shared project metadata
 
@@ -147,13 +119,15 @@ pixi add copier
 > **Note:** This step generates only the project metadata, not code or structure.
 
 ```bash
-pixi run copier copy gh:easyscience/templates .
+pixi run copier copy gh:easyscience/templates . --exclude '**/*' --exclude '!{{_copier_conf.answers_file}}' --exclude '!.gitignore'
 ```
 
 Fill in the required information when prompted. For project name, alias, and short description, refer to the organization profile for consistency.
 
-These answers are stored in a project description file `.project.yaml`, which becomes the single source of 
-truth for all related repositories.
+> **Important:** These answers are stored in a project description file `.copier-answers.yml`, 
+> which becomes the single source of truth for all related repositories. 
+> 
+> Do not modify it manually. Instead, update answers by re-running Copier in the home repository when needed.
 
 Commit and push:
 ```bash
@@ -169,7 +143,9 @@ cd ..
 
 ### 2.5 Generate Library / Application Repositories
 
-Now, set up Pixi and Copier for the library or application repository (e.g., `peasy-lib` or `peasy-app`):
+Now, set up Pixi and Copier for the library or application repository. 
+In the example below, we use the library repository (e.g., `peasy-lib`). In case of an 
+application, replace with the application repository name (e.g., `peasy-app`):
 
 ```bash
 cd peasy-lib
@@ -179,11 +155,10 @@ pixi add copier
 
 Apply both the Shared and Library-specific Copier templates to generate the project structure.
 
-> **Important:** Use the `--data-file` option to provide the path to the `.project.yaml` file with answers created in the main repository (e.g., `peasy`).
+> **Important:** Use the `--data-file` option to provide the path to the `.copier-answers.yml` file with answers created in the main repository (e.g., `peasy`).
 
 ```bash
-pixi run copier copy gh:easyscience/templates-lib . --data-file ../peasy/.project.yaml
-pixi run copier copy gh:easyscience/templates-shared . --data-file ../peasy/.project.yaml
+pixi run copier copy gh:easyscience/templates . --data-file ../peasy/.copier-answers.yml
 ```
 
 When prompted with `conflict. overwrite pixi.toml?`, confirm with `Yes` to overwrite the Pixi configuration file created during `pixi init` with the one generated from the template.
@@ -191,25 +166,29 @@ When prompted with `conflict. overwrite pixi.toml?`, confirm with `Yes` to overw
 After the project structure is generated, run the following commands to finalize the setup:
 
 - **Install extra development dependencies and set up tools:**
-  This step sets up pre-commit hooks, installs additional development dependencies, and configures non-Python file formatting.
+  This step sets up pre-commit hooks, installs additional development dependencies, and 
+  configures non-Python file formatting. See, `pixi.toml` for details regarding the `post-install` task.
   ```bash
   pixi run post-install
   ```
 
 - **Update documentation assets:**
-  Updates the logo and other assets in the `docs/` folder. Run this every time you update project-related logos or assets, especially after changes in the `easyscience/assets-branding` repository.
+  Updates the logo and other assets in the `docs/` folder. Run this every time you update 
+  project-related logos or assets, especially after changes in the `easyscience/assets-branding` repository.  See, `pixi.toml` for details regarding the `post-install` task.
   ```bash
   pixi run docs-update-assets
   ```
 
 - **Update SPDX license headers:**
-  Updates license headers in all project files. Run this whenever the copyright year changes, new files are added, or license information needs to be refreshed.
+  Updates license headers in all project files. Run this whenever the copyright year changes, 
+  new files are added, or license information needs to be refreshed.  See, `pixi.toml` for details regarding the `post-install` task.
   ```bash
   pixi run spdx-update
   ```
 
 - **Format all project files:**
-  Ensures all files adhere to the project's coding standards as defined in `pyproject.toml`. Run this after any changes to source code, configuration, workflows, or docs.
+  Ensures all files adhere to the project's coding standards as defined in `pyproject.toml`. 
+  Run this after any changes to source code, configuration, workflows, or docs.  See, `pixi.toml` for details regarding the `post-install` task.
   ```bash
   pixi run fix
   ```
@@ -218,9 +197,9 @@ After the project structure is generated, run the following commands to finalize
 
 ### 2.6. Where Are Answers Stored?
 
-The answers provided during setup are stored in:
-- **Shared answers:** `peasy-lib/.copier-answers.shared.yml`
-- **Project-specific answers:** `peasy-lib/.copier-answers.lib.yml`
+The answers needed to fill in the library templates are
+automatically taken from the home repository and stored 
+locally in `peasy-lib/.copier-answers.yml`
 
 They are autogenerated by Copier and should not be modified manually.
 
@@ -330,41 +309,34 @@ When templates evolve, existing repositories must be updated.
   ```bash
   cd peasy-lib
   ```
-2. Apply shared updates first (if any):
+2. Apply updated templates:
   ```bash
-  pixi run copier-update-shared
+  pixi run copier-update
   ```
-  After completing commit your changes.
-3. Apply project-specific updates (if any):
-  ```bash
-  pixi run copier-update-lib
-  ```
-  Commit again.
+
+If conflicts arise, Copier will prompt you to review them.
+
+Sometimes, one need to run Copier recopy instead of update, or even redo a
+standard copy again (see [Copier docs](https://copier.readthedocs.io/en/stable/generating/#regenerating-a-project) for details).
+
+This can be dony by:
+```bash
+pixi run copier-recopy
+```
+or in case of redoing a standard copy again:
+```bash
+pixi run copier-copy
+ ```
 
 #### Using a Specific Version/Tag
 To update to a specific version or tag of the templates (instead of the
 default latest tagged release), specify the version in the Copier
 command. This is useful for testing updates before official release:
 ```bash
-pixi run copier-update-shared --vcs-ref=master
+pixi run copier-update --vcs-ref=master
 ```
 
 If conflicts arise, Copier will prompt you to review them.
-
-Sometimes, for major template changes or complex conflicts, you may need to run Copier recopy instead of update:
-```bash
-pixi run copier-update-shared
-# IMPORTANT: Do not forget to push your changes to GitHub before running the next command. If you do not push after copier-update-shared, copier-recopy-lib will not work due to a dirty repository state.
-git add -A
-git commit -m "Update after applying shared template"
-git push origin master
-
-pixi run copier-recopy-lib
-# Push those changes to GitHub
-git add -A
-git commit -m "Update after applying project-specific template"
-git push origin master
-```
 
 
 ### GitHub Actions Workflows
