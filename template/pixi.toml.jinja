@@ -199,9 +199,16 @@ prettier-install = 'npm install --no-save --no-audit --no-fund prettier prettier
 clean-pycache = "find . -type d -name '__pycache__' -prune -exec rm -rf '{}' +"
 spdx-update = 'python tools/update_spdx.py'
 
-pre-commit-setup = 'pre-commit clean && pre-commit uninstall && pre-commit install --hook-type pre-commit --hook-type pre-push --overwrite'
+pre-commit-setup = { cmd = [
+  "pre-commit clean",
+  "pre-commit uninstall --hook-type pre-commit --hook-type pre-push",
+  "pre-commit install --hook-type pre-commit --hook-type pre-push --overwrite",
+] }
 pre-commit-update = 'pre-commit autoupdate'
-pre-commit-uninstall = 'pre-commit clean && pre-commit uninstall'
+pre-commit-uninstall = { cmd = [
+  "pre-commit clean",
+  "pre-commit uninstall --hook-type pre-commit --hook-type pre-push",
+] }
 
 post-install = { depends-on = [
   'npm-config',
