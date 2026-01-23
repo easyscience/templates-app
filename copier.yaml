@@ -134,7 +134,10 @@ app_package_name:
   when: '{{ project_type in ["app", "both"] }}'
   type: str
   default: '{{ project_name | lower }}_app'
-  help: What is the name for the application Python package (use lowercase letters)?
+  help: |
+    What is the name for the application Python package (use lowercase letters)?
+    Important: This should be different from the library package name, if the 
+    project includes both.
 
 app_python:
   when: '{{ project_type in ["app", "both"] }}'
