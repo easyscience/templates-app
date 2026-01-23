@@ -290,6 +290,16 @@ finalize the setup:
 > **Tip:** Run `pixi run fix` every time after updating any template
 > files or modifying any project files (source code, configuration,
 > workflows, docs, etc.) to ensure consistent formatting.
+> 
+> Normally, after running `pixi run fix`, you should see the message
+> `✅ All code auto-formatting steps have been applied.` indicating that 
+> all steps in the auto-formatting pipeline were successfully executed.
+> If you do not see this message, try running the command again.
+> 
+> Note, that even if you see this message, there might still be some 
+> issues left, which need to be fixed manually. In such cases, refer to
+> the output of `pixi run pre-commit-check` or `pixi run pre-push-check`
+> commands described below.
 
 ### 2.8. Code Quality Checks
 
@@ -332,9 +342,19 @@ To re-enable them, run:
 pixi run pre-commit-install
 ```
 
-Configurations for these hooks are in the `.pre-commit-config.yaml` file 
-under the project root. After modifying this file, reinstall the hooks 
-using the commands above.
+> **Tip:** To fine-tune which checks are performed by pre-commit hooks,
+> modify the configuration in the `.pre-commit-config.yaml` file located
+> at the project root. 
+> 
+> After modifying this file, reinstall the hooks using the commands 
+> above.
+
+> **Note:** If pre-commit or pre-push hooks are too slow, try disabling
+> the slowest check of the non-Python files formatter Prettier executed
+> in both pre-commit ('pixi-nonpy-format-check-modified') and pre-push 
+> ('pixi-nonpy-format-check') hooks. To do this, open the 
+> `.pre-commit-config.yaml` file and temporarily comment out or remove 
+> them. 
 
 ### 2.9. Push Changes to the Repository
 
