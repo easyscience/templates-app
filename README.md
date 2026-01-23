@@ -167,29 +167,43 @@ In the example below, we use the library repository (e.g., `peasy-lib`).
 In case of an application, replace with the application repository name
 (e.g., `peasy-app`):
 
+Navigate to the target repository:
+
+For library:
 ```bash
 cd peasy-lib
+```
+
+For application:
+```bash
+cd peasy-app
+```
+
+Initialize Pixi and install Copier:
+```bash
 pixi init
 pixi add copier
 ```
 
-Apply the Library-specific Copier templates to generate
-the project structure.
+Apply the Copier templates to generate the project structure.
 
 > **Important:** Use the `--data-file` option to provide the path to the
 > `.copier-answers.yml` file with answers created in the main repository
-> (e.g., `peasy`). 
-> 
-> In case of an application, replace `template_type=lib` with
-> `template_type=app` in the command below.
+> (`peasy`). 
 
+For library:
 ```bash
 pixi run copier copy gh:easyscience/templates . --data-file ../peasy/.copier-answers.yml --data template_type=lib
 ```
 
-When prompted with `conflict. overwrite pixi.toml?`, confirm with `Yes`
-to overwrite the Pixi configuration file created during `pixi init` with
-the one generated from the template.
+For application:
+```bash
+pixi run copier copy gh:easyscience/templates . --data-file ../peasy/.copier-answers.yml --data template_type=app
+```
+
+> **Note:** When prompted with `conflict. overwrite pixi.toml?` or 
+> `conflict. overwrite .gitignore?` confirm with `Yes` to overwrite the 
+> configuration files created during `pixi init`.
 
 After the project structure is generated, run the following commands to
 finalize the setup:
