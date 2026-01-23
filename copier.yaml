@@ -66,14 +66,16 @@ project_type:
 
 template_type:
   type: str
-  choices: |
-    {%- if project_type in ["lib", "both"] %}
+  choices:
+    - home
     - lib
-    {%- endif %}
-    {%- if project_type in ["app", "both"] %}
     - app
-    {%- endif %}
-  help: Which template do you want to apply right now?
+  default: home
+  help: |
+    Which template do you want to apply right now?
+       - home: Creates shared metadata only
+       - lib: Python library/package
+       - app: Qt QML desktop application
 
 ---
 # =============================================================================
