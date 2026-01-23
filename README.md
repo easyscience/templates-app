@@ -316,12 +316,17 @@ again.
 
 To check issues reported by pre-commit hooks without committing, run:
 
+First, stage all changes:
+```bash
+git add -A
+```
+
+Then, either check if commit would succeed:
 ```bash
 pixi run pre-commit-check
 ```
 
-or
-
+or check if push would succeed:
 ```bash
 pixi run pre-push-check
 ```
